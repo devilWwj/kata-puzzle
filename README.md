@@ -12,42 +12,43 @@ learn how to write unit test code.
 ```Java
 public class FizzBuzz {
 
+    private static final String FIZZBUZZ = "FizzBuzz";
+    private static final String FIZZ = "Fizz";
+    private static final String BUZZ = "Buzz";
 
-    public static void sayNumberGame(int firstNum, int secondNum) {
-        // 从1~100报数
-        for (int i = 1; i <= 100; i++) {
-            // 即是第一个特殊数字的倍数又是第二个数字的倍数说FizzBuzz
-            if (isMultipleNum(firstNum, i) && isMultipleNum(secondNum, i)) {
-                System.out.println(String.format("%s Don't Say number, but say FizzBuzz", i));
-                continue;
-            }
-
-            // 第一个特殊数字的倍数说Fizz
-            if (isMultipleNum(firstNum, i)) {
-                System.out.println(String.format("%d is a multiple of %d or contains %d Say Fizz", i, firstNum, firstNum));
-                continue;
-            }
-
-            // 第二个特殊数字的倍数说Buzz
-            if (isMultipleNum(secondNum, i)) {
-                System.out.println(String.format("%d is a multiple of %d or contains %d Say Buzz", i, secondNum, secondNum));
-                continue;
-            }
-
-            // 不满足以上所有条件
-            System.out.println(String.format("%s Say number", i));
+    public static String fizzBuzz(int sayNum, int firstNum, int secondNum) {
+        // 即是第一个特殊数字的倍数又是第二个数字的倍数说FizzBuzz
+        if (isFizzBuzz(sayNum, firstNum, secondNum)) {
+            return FIZZBUZZ;
         }
+
+        // 第一个特殊数字的倍数说Fizz
+        if (isMultipleOrContainNum(sayNum, firstNum)) {
+            return FIZZ;
+        }
+
+        // 第二个特殊数字的倍数说Buzz
+        if (isMultipleOrContainNum(sayNum, secondNum)) {
+            return BUZZ;
+        }
+
+        // 不满足以上所有条件
+        return String.valueOf(sayNum);
     }
 
-    public static boolean isMultipleNum(int targetNum, int sayNum) {
-        String targetNumStr = String.valueOf(targetNum);
-        String sayNumStr = String.valueOf(sayNum);
-        return sayNum % targetNum == 0 || sayNumStr.contains(targetNumStr);
+    public static boolean isFizzBuzz(int sayNum, int firstNum, int secondNum) {
+        return isMultipleOrContainNum(sayNum, firstNum) && isMultipleOrContainNum(sayNum, secondNum);
+    }
+
+    public static boolean isMultipleOrContainNum(int sayNum, int targetNum) {
+        return (sayNum % targetNum == 0 || formatNumToString(sayNum).contains(formatNumToString(targetNum)));
+    }
+
+    public static String formatNumToString(int num) {
+        return String.valueOf(num);
     }
 
     public static void main(String[] args) {
-        System.out.println("00.FizzBuzz!!!");
-        sayNumberGame(3, 5);
     }
 }
 
@@ -61,26 +62,22 @@ public class FizzBuzzTest {
 
     @Test
     public void testSayFizz() {
-        assertFalse(FizzBuzz.isMultipleNum(2, 3));
-        assertTrue(FizzBuzz.isMultipleNum(3, 3));
+        assertEquals("Fizz", FizzBuzz.fizzBuzz(3, 3, 5));
     }
 
     @Test
     public void testSayBuzz() {
-        assertFalse(FizzBuzz.isMultipleNum(4, 5));
-        assertTrue(FizzBuzz.isMultipleNum(5, 5));
+        assertEquals("Buzz", FizzBuzz.fizzBuzz(5, 3, 5));
     }
 
     @Test
     public void testSayFizzBuzz() {
-        assertTrue(FizzBuzz.isMultipleNum(3, 15));
-        assertTrue(FizzBuzz.isMultipleNum(5, 15));
+        assertEquals("FizzBuzz", FizzBuzz.fizzBuzz(15, 3, 5));
     }
 
     @Test
     public void testOnlySayNum() {
-        assertFalse(FizzBuzz.isMultipleNum(2, 3));
-        assertFalse(FizzBuzz.isMultipleNum(2, 5));
+        assertEquals("1", FizzBuzz.fizzBuzz(1, 3, 5));
     }
 
 }

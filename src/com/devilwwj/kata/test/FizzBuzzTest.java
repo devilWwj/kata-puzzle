@@ -14,26 +14,22 @@ public class FizzBuzzTest {
 
     @Test
     public void testSayFizz() {
-        assertFalse(FizzBuzz.isMultipleNum(2, 3));
-        assertTrue(FizzBuzz.isMultipleNum(3, 3));
+        assertEquals("Fizz", FizzBuzz.fizzBuzz(3, 3, 5));
     }
 
     @Test
     public void testSayBuzz() {
-        assertFalse(FizzBuzz.isMultipleNum(4, 5));
-        assertTrue(FizzBuzz.isMultipleNum(5, 5));
+        assertEquals("Buzz", FizzBuzz.fizzBuzz(5, 3, 5));
     }
 
     @Test
     public void testSayFizzBuzz() {
-        assertTrue(FizzBuzz.isMultipleNum(3, 15));
-        assertTrue(FizzBuzz.isMultipleNum(5, 15));
+        assertEquals("FizzBuzz", FizzBuzz.fizzBuzz(15, 3, 5));
     }
 
     @Test
     public void testOnlySayNum() {
-        assertFalse(FizzBuzz.isMultipleNum(2, 3));
-        assertFalse(FizzBuzz.isMultipleNum(2, 5));
+        assertEquals("1", FizzBuzz.fizzBuzz(1, 3, 5));
     }
 
 }
