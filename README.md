@@ -23,12 +23,12 @@ public class FizzBuzz {
         }
 
         // 第一个特殊数字的倍数说Fizz
-        if (isMultipleOrContainNum(sayNum, firstNum)) {
+        if (isFizz(sayNum, firstNum)) {
             return FIZZ;
         }
 
         // 第二个特殊数字的倍数说Buzz
-        if (isMultipleOrContainNum(sayNum, secondNum)) {
+        if (isBuzz(sayNum, secondNum)) {
             return BUZZ;
         }
 
@@ -37,7 +37,15 @@ public class FizzBuzz {
     }
 
     public static boolean isFizzBuzz(int sayNum, int firstNum, int secondNum) {
-        return isMultipleOrContainNum(sayNum, firstNum) && isMultipleOrContainNum(sayNum, secondNum);
+        return isFizz(sayNum, firstNum) && isBuzz(sayNum, secondNum);
+    }
+
+    public static boolean isFizz(int sayNum, int targetNum) {
+        return isMultipleOrContainNum(sayNum, targetNum);
+    }
+
+    public static boolean isBuzz(int sayNum, int targetNum) {
+        return isMultipleOrContainNum(sayNum, targetNum);
     }
 
     public static boolean isMultipleOrContainNum(int sayNum, int targetNum) {
